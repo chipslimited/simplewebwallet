@@ -15,9 +15,18 @@ sudo apt-get install -y tomcat8 openjdk-9-jdk-headless maven mysql-server
 # Configuration
 
 Suppose 
+* Now you are currently working at a computer which is running Ubuntu 16.04 server
 * a Ethereum full node is ready at 192.168.0.65 and its rpc server is serving at 8545.
 * CPS contract is at contract address 0x68b16039d79E0f51F109015e55a3311fE999a723
 * a MySQL server is running localhost:3306 with root password 123456
+
+Get wallet source code.
+```bash
+git clone https://github.com/chipslimited/simplewebwallet.git
+cd simplewebwallet
+```
+
+Initialise database
 
 ```bash
 mysql -u root -p < database.sql
