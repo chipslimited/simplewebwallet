@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration>
+	<!-- 应用名称 -->
+	<property name="log.base" value="deployweb" /> 
+	
+	<appender name="errorlogfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>GBK</Encoding>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<File>../logs/${log.base}.error.log</File> 
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<FileNamePattern>../logs/${log.base}.%d{yyyy-MM-dd}.error.log.zip</FileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>[%date] [%level] [%thread] [%C.%M:%L] %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="logfile"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>GBK</Encoding>
+		<File>../logs/${log.base}.log</File>  
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+		      <FileNamePattern>../logs/${log.base}.%d{yyyy-MM-dd}.log.zip</FileNamePattern>  
+		</rollingPolicy>
+		<encoder>
+			<pattern>[%date] [%level] [%thread] [%C.%M:%L] %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>[%date] [%level] [%thread] [%C.%M:%L] %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="com.alibaba" level="warn" />
+	<logger name="org.springframework" level="INFO" />
+	<logger name="cn.holysky" level="DEBUG" />
+	<logger name="org.apache.zookeeper" level="warn"/>
+	<logger name="ch.qos.logback" level="warn"/>
+	<logger name="org.apache.http" level="info" />
+	
+
+	<root level="DEBUG">
+		<appender-ref ref="stdout" />
+		<appender-ref ref="logfile" />
+		<appender-ref ref="errorlogfile" />
+	</root>
+</configuration>
