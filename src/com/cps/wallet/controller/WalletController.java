@@ -117,7 +117,7 @@ public class WalletController {
                     map.put(address,ethGetBalance.getBalance());
                 } catch (IOException e) {
                     e.printStackTrace();
-                    return null;
+                    map.put(address, BigInteger.valueOf(-1));
                 }
             }
             loginResponse.setUserId(userId);
@@ -227,7 +227,7 @@ public class WalletController {
             boolean b = checkPassWord(Integer.valueOf(transferRequest.getUserId()),transferRequest.getPassword());
             if( !b || !c){
                 response.setErrorCode(-1);
-                response.setErrorMsg("commit error");
+                response.setErrorMsg("session or password error");
                 response.setModel("密码错误或者sessionid错误");
                 return response;
             }
@@ -239,7 +239,7 @@ public class WalletController {
         } catch (Exception e) {
             e.printStackTrace();
             response.setErrorCode(-1);
-            response.setErrorMsg("未知错误");
+            response.setErrorMsg(e.getLocalizedMessage());
             return response;
         }
     }
@@ -258,7 +258,7 @@ public class WalletController {
             boolean b = checkPassWord(Integer.valueOf(transferRequest.getUserId()),transferRequest.getPassword());
             if( !b || !c){
                 response.setErrorCode(-1);
-                response.setErrorMsg("密码错误或者sessionid错误");
+                response.setErrorMsg("session or password error");
                 response.setModel("密码错误或者sessionid错误");
                 return response;
             }
@@ -285,7 +285,8 @@ public class WalletController {
         Response<List<String>> response = new Response<>();
         if (!checkSession(mnemonics.getUserId(), mnemonics.getSessionId())) {
             response.setErrorCode(-1);
-            response.setErrorMsg("session错误");
+            response.setErrorMsg("session error");
+
             return response;
         }
 
@@ -309,7 +310,7 @@ public class WalletController {
         Response<String> response = new Response<>();
         if(!checkSession(mnemonics.getUserId(),mnemonics.getSessionId())){
             response.setErrorCode(-1);
-            response.setErrorMsg("session错误");
+            response.setErrorMsg("session error");
             return response;
         }
 

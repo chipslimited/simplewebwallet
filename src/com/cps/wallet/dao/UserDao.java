@@ -145,7 +145,7 @@ public class UserDao{
 	public boolean walletExists(Integer userId, String account){
         Connection conn = DBUtil.getConnection(dataSource);
         try {
-            PreparedStatement ps = conn.prepareStatement("select id from user_wallet where id=? and account = ?");
+            PreparedStatement ps = conn.prepareStatement("select id from user_wallet where user_id=? and account = ?");
             ps.setInt(1,userId);
             ps.setString(2,account);
             ResultSet resultSet = ps.executeQuery();
@@ -168,7 +168,7 @@ public class UserDao{
 	    ArrayList<String> addresses = new ArrayList<>();
         Connection conn = DBUtil.getConnection(dataSource);
         try {
-            PreparedStatement ps = conn.prepareStatement("select id,account from user_wallet where id=?");
+            PreparedStatement ps = conn.prepareStatement("select id,account from user_wallet where user_id=?");
             ps.setInt(1,userId);
             ResultSet resultSet = ps.executeQuery();
             while (resultSet.next()){
